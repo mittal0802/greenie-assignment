@@ -1,10 +1,10 @@
 import "./App.css";
-import UserCreationForm from "./components/user-creation-form/user-creation-form.component";
+import Dashboard from "./components/dashboard/dashboard.component";
 
 function App() {
   return (
     <div className="App">
-      <UserCreationForm />
+      <Dashboard />
     </div>
   );
 }

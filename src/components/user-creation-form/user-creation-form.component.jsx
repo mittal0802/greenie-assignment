@@ -1,6 +1,9 @@
 import "./user-creation-form.styles.scss";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import FormInput from "../form-input/form-input.component";
+
+import { UserDataContext } from "../../contexts/users.context";
+
 const defaultFormFields = {
   username: "",
   email: "",
@@ -10,6 +13,7 @@ const defaultFormFields = {
 };
 
 const UserCreationForm = () => {
+  const { addUser } = useContext(UserDataContext);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { username, email, phone, password, confirmPassword } = formFields;
   const onChangeHandler = (event) => {
@@ -20,10 +24,12 @@ const UserCreationForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formFields);
+    addUser(formFields);
     setFormFields(defaultFormFields);
   };
   return (
     <div className="user-creation-form-container">
+      <div className="user-creation-form-title"> Create New User</div>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Username"

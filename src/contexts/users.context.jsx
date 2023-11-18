@@ -1,7 +1,7 @@
 import { createContext, useEffect, useReducer } from "react";
 import {
-  UpdateDocument,
-  getUserDetails,
+  updateUsersData,
+  getUsersDetails,
 } from "../utils/firebase/firebase.utils";
 
 const createAction = (type, payload) => ({ type, payload });
@@ -34,7 +34,7 @@ const usersReducer = (state, action) => {
       throw new Error(`Unknown action type: "${type}" in cartReducer`);
   }
 };
-export const usersProvider = ({ children }) => {
+export const UsersProvider = ({ children }) => {
   const [state, dispatch] = useReducer(usersReducer, INITIAL_STATE);
   const { usersData } = state;
   const setUsersData = (usersData) => {
@@ -45,14 +45,14 @@ export const usersProvider = ({ children }) => {
   };
   useEffect(() => {
     const getUsersData = async () => {
-      const usersData = await getUserDetails("users");
+      const usersData = await getUsersDetails();
       setUsersData(usersData);
     };
     getUsersData();
   }, []);
 
   useEffect(() => {
-    UpdateDocument("users", usersData);
+    updateUsersData(usersData);
   }, [usersData]);
 
   const value = {

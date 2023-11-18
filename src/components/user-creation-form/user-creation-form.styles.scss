@@ -1,0 +1,28 @@
+.user-creation-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  margin: 100px;
+  padding: 0 10px;
+  max-width: 400px;
+  //make background opaque black
+  background: rgba(0, 0, 0, 0.8);
+
+  .user-creation-form-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+    color: white;
+  }
+
+  @media (max-width: 800px) {
+    max-width: 80%;
+    margin: 50px auto;
+
+    .user-creation-form-title {
+      font-size: 1.2rem;
+    }
+  }
+}
