@@ -3,9 +3,12 @@ import { UserDataContext } from "../../contexts/users.context";
 import "./users-table.styles.scss";
 import SearchBox from "../search-box/search-box.component";
 import Popup from "../popup/popup.component";
+import UserPdf from "../pdfMaker/pdf-maker.component";
+
 const UsersTable = () => {
   const { usersData } = useContext(UserDataContext);
   const [searchData, setSearchData] = useState(usersData);
+  const [pdf, setPdf] = useState(false);
   const [popUp, setPopUp] = useState(false);
   const [searchField, setSearchField] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
@@ -16,7 +19,11 @@ const UsersTable = () => {
     setPopUp(true);
   };
   const onCloseHandler = () => {
+    setPdf(true);
     setPopUp(false);
+  };
+  const onPdfCloseHandler = () => {
+    setPdf(false);
   };
   const onSubmitChange = (event) => {
     if (event.key === "Enter") {
@@ -81,6 +88,7 @@ const UsersTable = () => {
           }
         </tbody>
       </table>
+      {pdf ? <UserPdf user={selectedUser} onClose={onPdfCloseHandler} /> : null}
     </div>
   );
 };
