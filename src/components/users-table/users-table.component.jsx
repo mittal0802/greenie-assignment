@@ -1,11 +1,23 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, Fragment } from "react";
 import { UserDataContext } from "../../contexts/users.context";
 import "./users-table.styles.scss";
 import SearchBox from "../search-box/search-box.component";
+import Popup from "../popup/popup.component";
 const UsersTable = () => {
   const { usersData } = useContext(UserDataContext);
   const [searchData, setSearchData] = useState(usersData);
+  const [popUp, setPopUp] = useState(false);
   const [searchField, setSearchField] = useState("");
+  const [selectedUser, setSelectedUser] = useState(null);
+  const onClickHandler = (event) => {
+    const username = event.target.parentElement.children[0].innerHTML;
+    const user = usersData.find((user) => user.username === username);
+    setSelectedUser(user);
+    setPopUp(true);
+  };
+  const onCloseHandler = () => {
+    setPopUp(false);
+  };
   const onSubmitChange = (event) => {
     if (event.key === "Enter") {
       const searchString = event.target.value.toLocaleLowerCase();
@@ -53,13 +65,20 @@ const UsersTable = () => {
         ) : null}
         <tbody>
           {searchData.map((user) => (
-            <tr key={user.username} className="values">
+            <tr key={user.username} className="values" onClick={onClickHandler}>
               <td>{user.username}</td>
               <td>{user.email}</td>
               <td>{user.phone}</td>
               <td>{user.createdAt.toString()}</td>
             </tr>
           ))}
+          {
+            <Fragment>
+              {popUp ? (
+                <Popup user={selectedUser} onClose={onCloseHandler} />
+              ) : null}
+            </Fragment>
+          }
         </tbody>
       </table>
     </div>
