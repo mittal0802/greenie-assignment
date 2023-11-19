@@ -3,8 +3,6 @@
 This project is part of assessment for Greenie hiring.
 Hosted Link: https://greenie-assignment.netlify.app/
 
-![alt text](https://i.ibb.co/ftMTMMJ/image-Greenie.png)
-
 ## Running Project Locally
 
 Download the project on your local machine or clone this github repository
