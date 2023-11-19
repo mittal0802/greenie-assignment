@@ -7,15 +7,20 @@ const UsersTable = () => {
   const [searchData, setSearchData] = useState(usersData);
   const [searchField, setSearchField] = useState("");
   const onSubmitChange = (event) => {
-    if (event.key === "Enter" || event.target.value.length === 0) {
+    if (event.key === "Enter") {
       const searchString = event.target.value.toLocaleLowerCase();
       setSearchField(searchString);
+    } else if (event.target.value.length === 0) {
+      setSearchField("");
     }
   };
   useEffect(() => {
-    if (searchField.length === 0) return;
+    if (searchField.length === 0) {
+      setSearchData(usersData);
+      return;
+    }
     const newfilteredProducts = usersData.filter((user) =>
-      (user.username + user.phone + user.email + user.createdAt)
+      (user.username + user.email + user.phone + user.createdAt)
         .toLowerCase()
         .includes(searchField)
     );
@@ -39,6 +44,13 @@ const UsersTable = () => {
             <th>Created At</th>
           </tr>
         </thead>
+        {searchData.length === 0 && searchField.length > 0 ? (
+          <tbody>
+            <tr>
+              <td colSpan="4">No users found</td>
+            </tr>
+          </tbody>
+        ) : null}
         <tbody>
           {searchData.map((user) => (
             <tr key={user.username} className="values">
