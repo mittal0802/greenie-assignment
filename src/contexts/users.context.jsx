@@ -52,6 +52,7 @@ export const UsersProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    if (usersData.length === 0) return;
     updateUsersData(usersData);
   }, [usersData]);
 
